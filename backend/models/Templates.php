@@ -7,7 +7,7 @@ namespace plathir\templates\backend\models;
  *
  *  @property \plathir\log\Module $module
  */
-class Log extends \plathir\templates\common\Templates {
+class Templates extends \plathir\templates\common\models\Templates {
 
     /**
      * @inheritdoc

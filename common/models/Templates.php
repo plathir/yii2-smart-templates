@@ -16,4 +16,11 @@ class Templates extends \yii\db\ActiveRecord {
         return 'templates';
     }
 
+    public function rules() {
+        return [
+            [['id'], 'integer'],
+            [['type', 'descr', 'text'], 'string'],
+        ];
+    }
+
 }

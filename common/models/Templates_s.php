@@ -1,9 +1,9 @@
 <?php
 
-namespace plathir\templates\backend\models;
+namespace plathir\templates\common\models;
 
 use yii\data\ActiveDataProvider;
-use plathir\tempolates\common\models\Templates;
+use plathir\templates\common\models\Templates;
 
 class Templates_s extends Templates {
 
@@ -13,8 +13,7 @@ class Templates_s extends Templates {
     public function rules() {
         return [
             [['id'], 'integer'],
-            [[ 'type','text'], 'string'],
-
+            [['type', 'descr', 'text'], 'string'],
         ];
     }
 

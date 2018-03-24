@@ -1,6 +1,6 @@
 <?php
 
-namespace plathir\log\backend\controllers;
+namespace plathir\templates\backend\controllers;
 
 use yii\web\Controller;
 use plathir\templates\backend\models\Templates;
@@ -9,7 +9,7 @@ use Yii;
 
 /**
  * AdminController implements the CRUD actions for Settings model.
- *  @property \plathir\log\Module $module
+ *  @property \plathir\templates\backend\Module $module
  */
 class DefaultController extends Controller {
 
@@ -26,6 +26,32 @@ class DefaultController extends Controller {
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function actionCreate() {
+        $model = new Templates();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->getSession()->setFlash('success', Yii::t('templates', 'Template : {id} created ! ', ['id' => $model->id]));
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('create', [
+                        'model' => $model,
+            ]);
+        }
+    }
+
+    public function actionUpdate($id) {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->getSession()->setFlash('success', Yii::t('templates', 'Template : {id} updated ! ', ['id' => $model->id]));
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('update', [
+                        'model' => $model,
+            ]);
+        }
     }
 
     public function actionView($id) {
