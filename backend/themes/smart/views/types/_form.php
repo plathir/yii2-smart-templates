@@ -4,8 +4,6 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use mihaildev\ckeditor\CKEditor;
 use mihaildev\elfinder\ElFinder;
-use plathir\templates\backend\models\Types;
-use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Posts */
@@ -23,18 +21,8 @@ use yii\helpers\ArrayHelper;
     </div><!-- /.box-header -->
     <div class="box-body">
         <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'name' => 'UpdPost']]); ?>
-        <?php
-        $templates_types_model = new Types();
-        $items = ArrayHelper::map($templates_types_model::find()->all(), 'name', 'name');
-        ?>  
-        <?= $form->field($model, 'type')->dropDownList($items) ?> 
+        <?= $form->field($model, 'name')->textInput(['maxlength' => 255]) ?>
         <?= $form->field($model, 'descr')->textInput(['maxlength' => 255]) ?>
-        <?php
-        echo $form->field($model, 'text')->widget(CKEditor::className(), [
-            'editorOptions' => ElFinder::ckeditorOptions('templates/elfinder', [/* Some CKEditor Options */
-            ]),
-        ]);
-        ?>
 
         <div class="form-group">
             <?= Html::submitButton($model->isNewRecord ? '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Create' : '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

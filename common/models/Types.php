@@ -1,6 +1,7 @@
 <?php
 
 namespace plathir\templates\common\models;
+
 use Yii;
 
 /**
@@ -8,29 +9,29 @@ use Yii;
  *
  *  @property \plathir\log\Module $module
  */
-class Templates extends \yii\db\ActiveRecord {
+class Types extends \yii\db\ActiveRecord {
 
     /**
      * @inheritdoc
      */
     public static function tableName() {
-        return 'templates';
+        return 'templates_types';
     }
 
     public function rules() {
         return [
-            [['id'], 'integer'],
-            [['type', 'descr', 'text'], 'string'],
+            [['name'], 'required'],
+            [['name'], 'unique'],
+            [['name'], 'string'],
+            [['descr'], 'string'],
         ];
     }
 
-    
-     public function attributeLabels() {
+    public function attributeLabels() {
         return [
-            'id' => Yii::t('templates', 'ID'),
-            'type' => Yii::t('templates', 'Type'),
+            'name' => Yii::t('templates', 'Type Name'),
             'descr' => Yii::t('templates', 'Description'),
-            'text' => Yii::t('templates', 'Text'),
         ];
-    }   
+    }
+
 }

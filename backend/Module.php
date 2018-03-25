@@ -10,6 +10,8 @@ class Module extends \yii\base\Module {
   //  public $defaultRoute = 'templates';
   //  public $modulename = '';
     public $Theme = 'smart';
+    public $mediaPath = '';
+    public $mediaUrl = '';    
 
     public function init() {
        
@@ -17,7 +19,28 @@ class Module extends \yii\base\Module {
 
         $path = Yii::getAlias('@vendor') . '/plathir/yii2-smart-templates/backend/themes/' . $this->Theme . '/views';
         $this->setViewPath($path);                
-        $this->registerTranslations();       
+        $this->registerTranslations();     
+        
+        $this->mediaPath = $this->settings->getSettings('TemplatesMediaPath');
+        $this->mediaUrl = $this->settings->getSettings('TemplatesMediaUrl');
+
+        $this->controllerMap = [
+            'elfinder' => [
+                'class' => 'mihaildev\elfinder\Controller',
+                'access' => ['@'],
+                'disabledCommands' => ['netmount'],
+                'roots' => [
+                    [
+                        'baseUrl' => $this->mediaUrl,
+                        'basePath' => $this->mediaPath,
+                        'path' => '',
+                        'name' => 'Global'
+                    ],
+                ],
+            ],
+        ];        
+        
+        
     }
 
     public function registerTranslations() {
