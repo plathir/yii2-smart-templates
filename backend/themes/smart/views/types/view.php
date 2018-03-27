@@ -25,10 +25,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <div class="template-types-view">
             <p>
-                <?= Html::a('Update', ['update', 'name' => $model->name], ['class' => 'btn btn-primary']) ?>
+                <?= Html::a('<i class="fa fa-pencil-square-o"></i> Update', ['update', 'name' => $model->name], ['class' => 'btn btn-primary btn-flat btn-loader']) ?>
                 <?=
-                Html::a('Delete', ['delete', 'id' => $model->name], [
-                    'class' => 'btn btn-danger',
+                Html::a('<i class="fa fa-trash-o"></i> Delete', ['delete', 'id' => $model->name], [
+                    'class' => 'btn btn-danger btn-flat btn-loader',
                     'data' => [
                         'confirm' => 'Are you sure you want to delete this item?',
                         'method' => 'post',
@@ -36,7 +36,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 ])
                 ?>
             </p>
-
 
             <?php
             echo DetailView::widget([

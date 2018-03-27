@@ -31,7 +31,7 @@ use yii\helpers\ArrayHelper;
         <?= $form->field($model, 'descr')->textInput(['maxlength' => 255]) ?>
         <?php
         echo $form->field($model, 'text')->widget(CKEditor::className(), [
-            'editorOptions' => ElFinder::ckeditorOptions('templates/elfinder', [/* Some CKEditor Options */
+            'editorOptions' => ElFinder::ckeditorOptions('/templates/elfinder', [/* Some CKEditor Options */
             ]),
         ]);
         ?>

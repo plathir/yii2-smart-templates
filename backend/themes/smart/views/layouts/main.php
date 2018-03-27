@@ -23,8 +23,8 @@ if (\Yii::$app->view->theme) {
         </div>
     </div><!-- /.box-header -->
     <div class="box-body">
-        <?= Html::a(Yii::t('app', '<i class="fa fa-database"></i> Types'), ['/templates/types'], ['class' => 'btn btn-app']) ?>
-        <?= Html::a(Yii::t('app', '<i class="fa fa-file-text-o"></i> Templates'), ['/templates'], ['class' => 'btn btn-app']) ?>
+        <?= Html::a(Yii::t('app', '<i class="fa fa-file-o"></i> Types'), ['/templates/types'], ['class' => 'btn btn-app']) ?>
+        <?= Html::a(Yii::t('app', '<i class="fa fa-file-code-o"></i> Templates'), ['/templates'], ['class' => 'btn btn-app']) ?>
     </div>
 </div>
 <?php

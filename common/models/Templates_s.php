@@ -37,10 +37,10 @@ class Templates_s extends Templates {
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'type' => $this->level,
+            'type' => $this->type,
         ]);
 
-        $query->andFilterWhere(['like', 'text', $this->text]);
+        $query->andFilterWhere(['like', 'descr', $this->descr]);
 
         return $dataProvider;
     }
