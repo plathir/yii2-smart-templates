@@ -21,8 +21,8 @@ class Module extends \yii\base\Module {
         $this->setViewPath($path);                
         $this->registerTranslations();     
         
-        $this->mediaPath = $this->settings->getSettings('TemplatesMediaPath');
-        $this->mediaUrl = $this->settings->getSettings('TemplatesMediaUrl');
+        $this->mediaPath = Yii::$app->settings->getSettings('TemplatesMediaPath'); //$this->settings->getSettings('TemplatesMediaPath');
+        $this->mediaUrl = Yii::$app->settings->getSettings('TemplatesMediaUrl');   //$this->settings->getSettings('TemplatesMediaUrl');
 
         $this->controllerMap = [
             'elfinder' => [
