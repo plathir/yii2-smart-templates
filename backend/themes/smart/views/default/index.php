@@ -40,6 +40,12 @@ use yii\grid\GridView;
             ],
         ]);
         ?>
-
+        <?=
+        Yii::$app->templates->getTemplate(Yii::$app->settings->getSettings('RegistrationTemplate'), [
+            '{user}' => 'plathir',
+            '{activate_link}' => 'test link',
+                ]
+        )
+        ?>
     </div>
 </div>
