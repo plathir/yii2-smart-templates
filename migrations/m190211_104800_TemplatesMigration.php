@@ -15,8 +15,8 @@ class m190211_104800_TemplatesMigration extends Migration {
 
     public function down() {
 
-        $this->dropIfExist('templates_types');
         $this->dropIfExist('templates');
+        $this->dropIfExist('templates_types');
     }
 
     public function CreateTemplatesTypesTable() {
