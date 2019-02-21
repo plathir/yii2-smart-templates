@@ -25,7 +25,7 @@ class m190211_104800_TemplatesMigration extends Migration {
         $this->createTable('templates_types', [
             'name' => $this->string(50)->notNull(),
             'descr' => $this->string()->notNull(),
-        ]);
+        ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
 
         $this->addPrimaryKey('pk_name', 'templates_types', ['name']);
     }
@@ -38,7 +38,7 @@ class m190211_104800_TemplatesMigration extends Migration {
             'type' => $this->string(50)->notNull(),
             'descr' => $this->string(255)->notNull(),
             'text' => $this->string()->notNull(),
-        ]);
+        ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
 
         $this->addPrimaryKey('pk_id', 'templates', ['id']);
         $this->addForeignKey('fk_type', 'templates', 'type', 'templates_types', 'name', 'CASCADE', 'CASCADE');
