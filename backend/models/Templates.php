@@ -13,7 +13,7 @@ class Templates extends \plathir\templates\common\models\Templates {
      * @inheritdoc
      */
     public static function tableName() {
-        return 'templates';
+        return '{{%templates}}';
     }
 
 }

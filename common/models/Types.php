@@ -15,7 +15,7 @@ class Types extends \yii\db\ActiveRecord {
      * @inheritdoc
      */
     public static function tableName() {
-        return 'templates_types';
+        return '{{%templates_types}}';
     }
 
     public function rules() {

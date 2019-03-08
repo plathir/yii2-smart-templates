@@ -13,7 +13,7 @@ class Types extends \plathir\templates\common\models\Types {
      * @inheritdoc
      */
     public static function tableName() {
-        return 'templates_types';
+        return '{{%templates_types}}';
     }
 
 }
