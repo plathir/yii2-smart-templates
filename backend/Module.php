@@ -1,5 +1,4 @@
 <?php
-
 namespace plathir\templates\backend;
 
 use Yii;
@@ -8,26 +7,30 @@ use \common\helpers\ThemesHelper;
 class Module extends \yii\base\Module {
 
     public $controllerNamespace = 'plathir\templates\backend\controllers';
-  //  public $defaultRoute = 'templates';
-  //  public $modulename = '';
+    //  public $defaultRoute = 'templates';
+    //  public $modulename = '';
     public $Theme = 'smart';
     public $mediaPath = '';
-    public $mediaUrl = '';    
+    public $mediaUrl = '';
+    public $themesExtractPath = '';
+    public $uploadZipPath = '';
 
     public function init() {
-       
+
         parent::init();
 
-      //  $path = Yii::getAlias('@vendor') . '/plathir/yii2-smart-templates/backend/themes/' . $this->Theme . '/views';
+        //  $path = Yii::getAlias('@vendor') . '/plathir/yii2-smart-templates/backend/themes/' . $this->Theme . '/views';
+        $this->themesExtractPath = Yii::getAlias('@themes');
+        $this->uploadZipPath = Yii::getAlias('@themes') . '/uploads';
 
         $helper = new ThemesHelper();
         $path = $helper->ModuleThemePath('templates', 'backend', dirname(__FILE__) . "/themes/$this->Theme");
         $path = $path . '/views';
-        
-        
-        $this->setViewPath($path);                
-        $this->registerTranslations();     
-        
+
+
+        $this->setViewPath($path);
+        $this->registerTranslations();
+
         $this->mediaPath = Yii::$app->settings->getSettings('TemplatesMediaPath'); //$this->settings->getSettings('TemplatesMediaPath');
         $this->mediaUrl = Yii::$app->settings->getSettings('TemplatesMediaUrl');   //$this->settings->getSettings('TemplatesMediaUrl');
 
@@ -45,9 +48,7 @@ class Module extends \yii\base\Module {
                     ],
                 ],
             ],
-        ];        
-        
-        
+        ];
     }
 
     public function registerTranslations() {
