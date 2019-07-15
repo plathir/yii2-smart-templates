@@ -70,10 +70,8 @@ class ThemesController extends Controller {
     public function ExtractAndInstallTheme($model) {
 
         if ($this->ExtractFile($model->FileName, $model->Destination)) {
-////            $model = $this->FillModelValuesFromAppFiles($model);
-////            $this->MigrateUp($model->name);
-////            $this->BuildViews($model->name, 'smart');
-////            $this->installApp($model);
+//           $model = $this->FillModelValuesFromThemeFiles($model);
+//            $this->installApp($model);
             return $this->redirect(['index']);
         } else {
             Yii::$app->getSession()->setFlash('danger', 'Theme cannot extract !');
