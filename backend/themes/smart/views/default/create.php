@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Posts */
 
-$this->title = 'Create Templates';
-$this->params['breadcrumbs'][] = ['label' => 'Templates', 'url' => ['index']];
+$this->title = Yii::t('templates','Create Template');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('templates','Templates'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="templates-create">

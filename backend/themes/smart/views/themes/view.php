@@ -7,14 +7,14 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Posts */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Template Types', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('templates', 'Themes'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 
 <div class="box box-info">
     <div class="box-header with-border">
-        <h3 class="box-title"><?= 'View Template Type :' . Html::encode($this->title) ?></h3>
+        <h3 class="box-title"><?= Yii::t('templates', 'View Theme : ') . Html::encode($this->title) ?></h3>
         <div class="box-tools pull-right">
             <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
             <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -25,16 +25,18 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <div class="template-types-view">
             <p>
-                <?= Html::a('<i class="fa fa-pencil-square-o"></i> Update', ['update', 'name' => $model->name], ['class' => 'btn btn-primary btn-flat btn-loader']) ?>
+                <?= Html::a('<i class="fa fa-pencil-square-o"></i> ' . Yii::t('templates', 'Update'), ['update', 'name' => $model->name], ['class' => 'btn btn-primary btn-flat btn-loader']) ?>
                 <?=
-                Html::a('<i class="fa fa-trash-o"></i> Delete', ['delete', 'id' => $model->name], [
-                    'class' => 'btn btn-danger btn-flat btn-loader',
+                Html::a('<i class="fa fa-trash-o"></i> ' . Yii::t('templates', 'Delete'), ['delete', 'name' => $model->name], [
+                    'class' => 'btn btn-danger btn-flat',
                     'data' => [
-                        'confirm' => 'Are you sure you want to delete this item?',
+                        'confirm' => Yii::t('templates', 'Are you sure you want to delete this item ?'),
                         'method' => 'post',
                     ],
                 ])
                 ?>
+                <?= Html::a('<i class="fa fa-copy"></i> ' . Yii::t('templates', 'Copy'), ['copy', 'name' => $model->name], ['class' => 'btn btn-success btn-flat btn-loader']) ?>
+                <?= Html::a('<i class="fa fa-fw fa-download"></i> ' . Yii::t('templates', 'Download'), ['download', 'name' => $model->name], ['class' => 'btn btn-success btn-flat']) ?>
             </p>
 
             <?php
@@ -44,6 +46,41 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attributes' => [
                     'name',
                     'descr',
+                           
+                    'version',
+
+                    [
+                        'attribute' => 'backend',
+                        'value' => function($model) {
+                            return $model->Backendcheckicon;
+                        },
+                        'format' => 'raw',
+                    ],                                
+
+                    [
+                        'attribute' => 'frontend',
+                        'value' => function($model) {
+                            return $model->Frontendcheckicon;
+                        },
+                        'format' => 'raw',
+                    ],                                
+                    
+                    'created_at:datetime',
+                    [
+                        'attribute' => 'created_by',
+                        'value' => function($model) {
+                            return $model->Username_cr;
+                        },
+                        'format' => 'raw',
+                    ],                                
+                    'updated_at:datetime',
+                    [
+                        'attribute' => 'updated_by',
+                        'value' => function($model) {
+                            return $model->Username_up;
+                        },
+                        'format' => 'raw',
+                    ],                                  
                 ],
             ])
             ?>

@@ -19,53 +19,74 @@ class DefaultController extends Controller {
     }
 
     public function actionIndex() {
-        $searchModel = new Templates_s();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if (\yii::$app->user->can('TemplatesAdmin')) {
+            $searchModel = new Templates_s();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
-                    'searchModel' => $searchModel,
-                    'dataProvider' => $dataProvider,
-        ]);
+            return $this->render('index', [
+                        'searchModel' => $searchModel,
+                        'dataProvider' => $dataProvider,
+            ]);
+        } else {
+            throw new \yii\web\NotAcceptableHttpException(Yii::t('templates', 'No Permission to View Templates '));
+        }
     }
 
     public function actionCreate() {
-        $model = new Templates();
+        if (\yii::$app->user->can('TemplatesAdmin')) {
+            $model = new Templates();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->getSession()->setFlash('success', Yii::t('templates', 'Template : {id} created ! ', ['id' => $model->id]));
-            return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                Yii::$app->getSession()->setFlash('success', Yii::t('templates', 'Template : {id} created ! ', ['id' => $model->id]));
+                return $this->redirect(['view', 'id' => $model->id]);
+            } else {
+                return $this->render('create', [
+                            'model' => $model,
+                ]);
+            }
         } else {
-            return $this->render('create', [
-                        'model' => $model,
-            ]);
+            throw new \yii\web\NotAcceptableHttpException(Yii::t('templates', 'No Permission to Create Template '));
         }
     }
 
     public function actionUpdate($id) {
-        $model = $this->findModel($id);
+        if (\yii::$app->user->can('TemplatesAdmin')) {
+            $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->getSession()->setFlash('success', Yii::t('templates', 'Template : {id} updated ! ', ['id' => $model->id]));
-            return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                Yii::$app->getSession()->setFlash('success', Yii::t('templates', 'Template : {id} updated ! ', ['id' => $model->id]));
+                return $this->redirect(['view', 'id' => $model->id]);
+            } else {
+                return $this->render('update', [
+                            'model' => $model,
+                ]);
+            }
         } else {
-            return $this->render('update', [
-                        'model' => $model,
-            ]);
+            throw new \yii\web\NotAcceptableHttpException(Yii::t('templates', 'No Permission to Update Template '));
         }
     }
 
     public function actionView($id) {
-        $model = $this->findModel($id);
-        return $this->render('view', [
-                    'model' => $model,
-        ]);
+        if (\yii::$app->user->can('TemplatesAdmin')) {
+            $model = $this->findModel($id);
+            return $this->render('view', [
+                        'model' => $model,
+            ]);
+        } else {
+            throw new \yii\web\NotAcceptableHttpException(Yii::t('templates', 'No Permission to View Template '));
+        }
     }
 
     public function actionDelete($id) {
-        if ($this->findModel($id)->delete()) {
-            Yii::$app->getSession()->setFlash('success', Yii::t('templates', 'Template entry : {id} deleted', ['id' => $id]));
+        if (\yii::$app->user->can('TemplatesAdmin')) {
+
+            if ($this->findModel($id)->delete()) {
+                Yii::$app->getSession()->setFlash('success', Yii::t('templates', 'Template entry : {id} deleted', ['id' => $id]));
+            }
+            return $this->redirect(['index']);
+        } else {
+            throw new \yii\web\NotAcceptableHttpException(Yii::t('templates', 'No Permission to Delete Template '));
         }
-        return $this->redirect(['index']);
     }
 
     protected function findModel($id) {

@@ -16,15 +16,16 @@ if (\Yii::$app->view->theme) {
 
 <div class="box box-danger">
     <div class="box-header with-border">
-        <h3 class="box-title">Templates</h3>
+        <h3 class="box-title"><?=  Yii::t('templates', 'Templates') ?></h3>
         <div class="box-tools pull-right">
             <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
             <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
         </div>
     </div><!-- /.box-header -->
     <div class="box-body">
-        <?= Html::a(Yii::t('app', '<i class="fa fa-file-o"></i> Types'), ['/templates/types'], ['class' => 'btn btn-app']) ?>
-        <?= Html::a(Yii::t('app', '<i class="fa fa-file-code-o"></i> Templates'), ['/templates'], ['class' => 'btn btn-app']) ?>
+        <?= Html::a('<i class="fa fa-file-o"></i> '. Yii::t('templates','Template Types'), ['/templates/types'], ['class' => 'btn btn-app']) ?>
+        <?= Html::a('<i class="fa fa-file-code-o"></i> '. Yii::t('templates','Templates'), ['/templates'], ['class' => 'btn btn-app']) ?>
+        <?= Html::a('<i class="fa fa-file-photo-o"></i> '. Yii::t('templates','Themes'), ['/templates/themes'], ['class' => 'btn btn-app']) ?>
     </div>
 </div>
 <?php

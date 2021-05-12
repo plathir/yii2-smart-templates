@@ -11,10 +11,12 @@ class m190211_104800_TemplatesMigration extends Migration {
 
         $this->CreateTemplatesTypesTable();
         $this->CreateTemplatesTable();
+        $this->CreateTemplatesThemesTable();
     }
 
     public function down() {
 
+        $this->dropIfExist('templates_themes');
         $this->dropIfExist('templates');
         $this->dropIfExist('templates_types');
     }
@@ -25,11 +27,34 @@ class m190211_104800_TemplatesMigration extends Migration {
         $this->createTable('{{%templates_types}}', [
             'name' => $this->string(50)->notNull(),
             'descr' => $this->string()->notNull(),
+            'avail_fields' => $this->string(),
         ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
 
         $this->addPrimaryKey('pk_name', '{{%templates_types}}', ['name']);
     }
 
+        public function CreateTemplatesThemesTable() {
+        $this->dropIfExist('templates_themes');
+
+        $this->createTable('{{%templates_themes}}', [
+            'name' => $this->string(50)->notNull(),
+            'descr' => $this->string()->notNull(),
+            'version' => $this->string(40)->notNull(),
+            'backend' => $this->integer()->notNull(), //int(11) NOT NULL,
+            'frontend' => $this->integer()->notNull(), //int(11) NOT NULL,
+            'created_at' => $this->integer()->notNull(), //int(11) NOT NULL,
+            'created_by' => $this->integer()->notNull(), //int(11) NOT NULL,
+            'updated_at' => $this->integer()->notNull(), //int(11) NOT NULL,
+            'updated_by' => $this->integer()->notNull(), //int(11) NOT NULL,
+            'locked' => $this->integer()->notNull(), // int(11) DEFAULT NULL                        
+        ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
+
+        $this->addPrimaryKey('pk_name', '{{%templates_themes}}', ['name']);
+    }
+
+    
+    
+    
     public function CreateTemplatesTable() {
         $this->dropIfExist('templates');
 

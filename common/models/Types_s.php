@@ -14,6 +14,7 @@ class Types_s extends Types {
         return [
             [['name'], 'integer'],
             [['descr'], 'string'],
+            [['avail_fields'], 'string'],
         ];
     }
 
@@ -38,6 +39,7 @@ class Types_s extends Types {
         $query->andFilterWhere([
             'name' => $this->name,
             'descr' => $this->descr,
+            'avail_fields' => $this->descr,
         ]);
 
         return $dataProvider;

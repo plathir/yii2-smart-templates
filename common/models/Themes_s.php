@@ -12,8 +12,10 @@ class Themes_s extends Themes {
      */
     public function rules() {
         return [
-            [['name'], 'integer'],
+            [['name'], 'string'],
             [['descr'], 'string'],
+            [['backend'], 'integer'],
+            [['frontend'], 'integer'],
         ];
     }
 
@@ -38,6 +40,8 @@ class Themes_s extends Themes {
         $query->andFilterWhere([
             'name' => $this->name,
             'descr' => $this->descr,
+            'backend' => $this->backend,
+            'frontend' => $this->frontend,
         ]);
 
         return $dataProvider;

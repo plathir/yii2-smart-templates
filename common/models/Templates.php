@@ -2,6 +2,7 @@
 
 namespace plathir\templates\common\models;
 use Yii;
+use plathir\templates\common\models\Types;
 
 /**
  * This is the model class for table "log".
@@ -21,6 +22,7 @@ class Templates extends \yii\db\ActiveRecord {
         return [
             [['id'], 'integer'],
             [['type', 'descr', 'text'], 'string'],
+            [['type'], 'required'],
         ];
     }
 
@@ -31,6 +33,16 @@ class Templates extends \yii\db\ActiveRecord {
             'type' => Yii::t('templates', 'Type'),
             'descr' => Yii::t('templates', 'Description'),
             'text' => Yii::t('templates', 'Text'),
+            'availfields' => Yii::t('templates', 'Available Fields'),
         ];
-    }   
+    }
+    
+    public function getTypes() {
+       return $this->hasOne(Types::className(), ['name' => 'type']);
+    }
+    
+    public function getAvailfields() {
+          return $this->types["avail_fields"];    
+    }
+    
 }

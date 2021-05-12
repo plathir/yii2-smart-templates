@@ -6,6 +6,7 @@ use yii\web\Controller;
 use plathir\templates\backend\models\Types;
 use plathir\templates\backend\models\Types_s;
 use Yii;
+use yii\web\NotFoundHttpException;
 
 /**
  * AdminController implements the CRUD actions for Settings model.
@@ -19,53 +20,73 @@ class TypesController extends Controller {
     }
 
     public function actionIndex() {
-        $searchModel = new Types_s();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if (\yii::$app->user->can('TemplatesAdmin')) {
+            $searchModel = new Types_s();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
-                    'searchModel' => $searchModel,
-                    'dataProvider' => $dataProvider,
-        ]);
+            return $this->render('index', [
+                        'searchModel' => $searchModel,
+                        'dataProvider' => $dataProvider,
+            ]);
+        } else {
+            throw new \yii\web\NotAcceptableHttpException(Yii::t('templates', 'No Permission to View Template Types '));
+        }
     }
 
     public function actionCreate() {
-        $model = new Types();
+        if (\yii::$app->user->can('TemplatesAdmin')) {
+            $model = new Types();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->getSession()->setFlash('success', Yii::t('templates', 'Template Type : {id} created ! ', ['id' => $model->name]));
-            return $this->redirect(['view', 'name' => $model->name ]);
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                Yii::$app->getSession()->setFlash('success', Yii::t('templates', 'Template Type : {id} created ! ', ['id' => $model->name]));
+                return $this->redirect(['view', 'name' => $model->name]);
+            } else {
+                return $this->render('create', [
+                            'model' => $model,
+                ]);
+            }
         } else {
-            return $this->render('create', [
-                        'model' => $model,
-            ]);
+            throw new \yii\web\NotAcceptableHttpException(Yii::t('templates', 'No Permission to Create Template Types '));
         }
     }
 
     public function actionUpdate($name) {
-        $model = $this->findModel($name);
+        if (\yii::$app->user->can('TemplatesAdmin')) {
+            $model = $this->findModel($name);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->getSession()->setFlash('success', Yii::t('templates', 'Template Type : {name} updated ! ', ['name' => $model->name]));
-            return $this->redirect(['view', 'name' => $model->name]);
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                Yii::$app->getSession()->setFlash('success', Yii::t('templates', 'Template Type : {name} updated ! ', ['name' => $model->name]));
+                return $this->redirect(['view', 'name' => $model->name]);
+            } else {
+                return $this->render('update', [
+                            'model' => $model,
+                ]);
+            }
         } else {
-            return $this->render('update', [
-                        'model' => $model,
-            ]);
+            throw new \yii\web\NotAcceptableHttpException(Yii::t('templates', 'No Permission to Update Template Type '));
         }
     }
 
     public function actionView($name) {
-        $model = $this->findModel($name);
-        return $this->render('view', [
-                    'model' => $model,
-        ]);
+        if (\yii::$app->user->can('TemplatesAdmin')) {
+            $model = $this->findModel($name);
+            return $this->render('view', [
+                        'model' => $model,
+            ]);
+        } else {
+            throw new \yii\web\NotAcceptableHttpException(Yii::t('templates', 'No Permission to View Template Type '));
+        }
     }
 
     public function actionDelete($name) {
-        if ($this->findModel($name)->delete()) {
-            Yii::$app->getSession()->setFlash('success', Yii::t('templates', 'Template entry : {name} deleted', ['name' => $name]));
+        if (\yii::$app->user->can('TemplatesAdmin')) {
+            if ($this->findModel($name)->delete()) {
+                Yii::$app->getSession()->setFlash('success', Yii::t('templates', 'Template entry : {name} deleted', ['name' => $name]));
+            }
+            return $this->redirect(['index']);
+        } else {
+            throw new \yii\web\NotAcceptableHttpException(Yii::t('templates', 'No Permission to View Template Type '));
         }
-        return $this->redirect(['index']);
     }
 
     protected function findModel($name) {

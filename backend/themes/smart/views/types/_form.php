@@ -23,6 +23,7 @@ use mihaildev\elfinder\ElFinder;
         <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'name' => 'UpdPost']]); ?>
         <?= $form->field($model, 'name')->textInput(['maxlength' => 255]) ?>
         <?= $form->field($model, 'descr')->textInput(['maxlength' => 255]) ?>
+        <?= $form->field($model, 'avail_fields')->textarea(['rows' => 6]) ?>
 
         <div class="form-group">
             <?= Html::submitButton($model->isNewRecord ? '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Create' : '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Update', ['class' => $model->isNewRecord ? 'btn btn-success btn-flat btn-loader' : 'btn btn-primary btn-flat btn-loader']) ?>

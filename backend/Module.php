@@ -13,6 +13,7 @@ class Module extends \yii\base\Module {
     public $mediaPath = '';
     public $mediaUrl = '';
     public $themesExtractPath = '';
+    public $www_themesExtractPath = '';
     public $uploadZipPath = '';
 
     public function init() {
@@ -21,8 +22,9 @@ class Module extends \yii\base\Module {
 
         //  $path = Yii::getAlias('@vendor') . '/plathir/yii2-smart-templates/backend/themes/' . $this->Theme . '/views';
         $this->themesExtractPath = Yii::getAlias('@themes');
+        $this->www_themesExtractPath = Yii::getAlias('@realAppPath'). DIRECTORY_SEPARATOR. 'www';
         $this->uploadZipPath = Yii::getAlias('@themes') . '/uploads';
-
+        
         $helper = new ThemesHelper();
         $path = $helper->ModuleThemePath('templates', 'backend', dirname(__FILE__) . "/themes/$this->Theme");
         $path = $path . '/views';

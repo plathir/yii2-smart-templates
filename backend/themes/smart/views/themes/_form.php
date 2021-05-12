@@ -2,8 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use mihaildev\ckeditor\CKEditor;
-use mihaildev\elfinder\ElFinder;
+use kartik\widgets\SwitchInput;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Posts */
@@ -20,10 +19,18 @@ use mihaildev\elfinder\ElFinder;
 
     </div><!-- /.box-header -->
     <div class="box-body">
+        <?php
+        $items_active = [
+            '0' => Yii::t('templates', 'Inactive'),
+            '1' => Yii::t('templates', 'Active')
+        ];
+        ?>
         <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'name' => 'UpdPost']]); ?>
         <?= $form->field($model, 'name')->textInput(['maxlength' => 255]) ?>
         <?= $form->field($model, 'descr')->textInput(['maxlength' => 255]) ?>
-
+        <?= $form->field($model, 'version')->textInput(['maxlength' => 255]) ?>      
+        <?php echo $form->field($model, 'backend')->widget(SwitchInput::classname(), []); ?>
+        <?php echo $form->field($model, 'frontend')->widget(SwitchInput::classname(), []); ?>
         <div class="form-group">
             <?= Html::submitButton($model->isNewRecord ? '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Create' : '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Update', ['class' => $model->isNewRecord ? 'btn btn-success btn-flat btn-loader' : 'btn btn-primary btn-flat btn-loader']) ?>
         </div>

@@ -24,6 +24,7 @@ class Types extends \yii\db\ActiveRecord {
             [['name'], 'unique'],
             [['name'], 'string'],
             [['descr'], 'string'],
+            [['avail_fields'], 'string'],
         ];
     }
 
@@ -31,6 +32,7 @@ class Types extends \yii\db\ActiveRecord {
         return [
             'name' => Yii::t('templates', 'Type Name'),
             'descr' => Yii::t('templates', 'Description'),
+            'avail_fields' => Yii::t('templates', 'Available Fields'),
         ];
     }
 

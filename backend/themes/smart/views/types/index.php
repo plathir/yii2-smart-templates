@@ -12,7 +12,7 @@ use yii\helpers\Url;
 ?>
 <div class="box box-info">
     <div class="box-header with-border">
-        <h3 class="box-title">Template Types</h3>
+        <h3 class="box-title"><?=  Yii::t('templates', 'Template Types') ?></h3>
         <div class="box-tools pull-right">
             <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
             <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -25,7 +25,8 @@ use yii\helpers\Url;
                     'data-toggle' => 'tooltip',
                 ]), ['create'], ['class' => 'btn btn-success btn-flat btn-loader'])
         ?>                  
-
+        <br>
+        <br>
 
         <?=
         GridView::widget([
@@ -34,6 +35,7 @@ use yii\helpers\Url;
             'columns' => [
                 'name',
                 'descr',
+                'avail_fields',
                 ['class' => 'yii\grid\ActionColumn',
                     'template' => '{view}{update}{delete}',
                     'contentOptions' => ['style' => 'min-width: 80px;'],

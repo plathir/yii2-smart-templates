@@ -26,18 +26,36 @@ use yii\helpers\ArrayHelper;
         <?php
         $templates_types_model = new Types();
         $items = ArrayHelper::map($templates_types_model::find()->all(), 'name', 'name');
+        $allTypes = ArrayHelper::map($templates_types_model::find()->all(), 'name', 'avail_fields');
+        $jsallTypes = json_encode($allTypes);
+        $avail_text = Yii::t('templates', 'Available Fields');
         ?>  
-        <?= $form->field($model, 'type')->dropDownList($items) ?> 
+
+        <?=
+        $form->field($model, 'type')->dropDownList($items, [
+            'prompt' => Yii::t('templates','-- Select Value --'),
+            'onLoad' => 'alert("In")',
+            'onchange' => "var a= $jsallTypes ;
+                           $('#availfields').html('<strong>$avail_text : </strong>'+a[this.value])",
+        ]);
+        ?> 
         <?= $form->field($model, 'descr')->textInput(['maxlength' => 255]) ?>
-        <?php
-        echo $form->field($model, 'text')->widget(CKEditor::className(), [
+
+
+        <div id="availfields">
+            <?php if (!$model->isNewRecord ) { ?>
+            <?= '<strong>' . $avail_text . ' : </strong>' . $allTypes[$model->type]; ?>
+            <?php } ?>
+        </div> <br><br>
+        <?=
+        $form->field($model, 'text')->widget(CKEditor::className(), [
             'editorOptions' => ElFinder::ckeditorOptions('/templates/elfinder', [/* Some CKEditor Options */
             ]),
         ]);
         ?>
 
         <div class="form-group">
-            <?= Html::submitButton($model->isNewRecord ? '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Create' : '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+            <?= Html::submitButton($model->isNewRecord ? '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> '.Yii::t('templates', 'Save') : '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> '.Yii::t('templates', 'Save Changes'), ['class' => $model->isNewRecord ? 'btn btn-success btn-flat' : 'btn btn-primary btn-flat']) ?>
         </div>
 
         <?php ActiveForm::end(); ?>        

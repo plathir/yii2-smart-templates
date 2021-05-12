@@ -18,10 +18,10 @@ use yii\widgets\ActiveForm;
             </div>
         </div><!-- /.box-header -->
         <div class="box-body">
-            <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
-            <?= $form->field($model, 'file')->fileInput() ?>
+            <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'name' => 'CopyTheme']]); ?>
+            <?= $form->field($model, 'copy_to')->textInput(['maxlength' => 255]) ?>
             <div class="form-group">
-                <?= Html::submitButton('<i class="fa fa-fw fa-download"></i>' .Yii::t('templates', 'Install'), ['class' => $model->isNewRecord ? 'btn btn-success btn-flat' : 'btn btn-primary btn-flat']) ?>
+                <?= Html::submitButton('<i class="fa fa-fw fa-copy"></i>' .Yii::t('templates', 'Copy'), ['class' => $model->isNewRecord ? 'btn btn-success btn-flat' : 'btn btn-primary btn-flat']) ?>
             </div>
             <?php ActiveForm::end(); ?>            
         </div>
